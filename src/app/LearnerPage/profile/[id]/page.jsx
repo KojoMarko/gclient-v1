@@ -9,19 +9,9 @@ import NavbarAP from "../../../components/LearnerAppPage/NavbarAP";
 const lato = Lato({ subsets: ["latin"], weight: ["700"], variable: "--font-lato" });
 const inter = Inter({ subsets: ["latin"], weight: ["400", "600"], variable: "--font-inter" });
 
-// Define a proper type for the user object
-interface User {
-  username: string;
-  email: string;
-  location?: string;
-  gender?: string;
-  phone?: string;
-  // Add any other properties your user object has
-}
-
 const ProfilePage = () => {
   const { id } = useParams();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -56,7 +46,7 @@ const ProfilePage = () => {
       <div className={`flex my-[62px] gap-6 ${inter.variable}`}>
         <div className="flex items-center gap-6">
           <div className="w-[60px] h-[60px] rounded-full bg-hero-bg text-white text-2xl font-bold flex items-center justify-center mr-2.5">
-            {user.username?.split(" ").map((n: string) => n[0]).join("").toUpperCase()}
+            {user.username?.split(" ").map((n) => n[0]).join("").toUpperCase()}
           </div>
           <div className="m-0">
             <p className="text-black"><strong>{user.username}</strong></p>
