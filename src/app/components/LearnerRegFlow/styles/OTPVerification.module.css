@@ -1,0 +1,96 @@
+/* components/styles/OTPVerification.module.css */
+.otpContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.card {
+    width: 383px;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.title {
+    font-size: 32px;
+    line-height: 40px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.instruction {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #777;
+}
+
+.otpInputs {
+    display: flex;
+    justify-content: center; /* Center the inputs */
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.otpInput {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.otpInput:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 4px rgba(0, 86, 179, 0.2);
+}
+
+.otpInput:invalid { /* Highlight invalid input fields */
+    border-color: red;
+}
+
+.resend {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #777;
+}
+
+.resend a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.verifyButton {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #0056b3;
+    color: white;
+    font-size: 16px;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.resendButton {
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background: none;
+    text-decoration: underline;
+  }
+  
+  .resendButton:disabled {
+    color: gray;
+    cursor: not-allowed;
+  }
+  
+  .success {
+    color: green;
+    text-align: center;
+    margin-top: 5px;
+  }

@@ -1,0 +1,119 @@
+
+.loginContainer {
+    width: 436px; /* Set width from Figma */
+    height: 520px; /* Set height from Figma */
+    padding: 24px; /* Set padding from Figma */
+    border-radius: 0px; /* Set border radius from Figma */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+    background-color: #fff; /* White background */
+    color: black;
+}
+
+.title {
+    font-size: 32px; /* Adjust as needed */
+    line-height: 40px; /* Adjust as needed */
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.googleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.googleIcon { /* Style for the Google icon */
+    margin-right: 8px;
+}
+
+.orSeparator {
+    text-align: center;
+    margin-bottom: 16px;
+    color: #777;
+}
+
+.inputGroup {
+    margin-bottom: 16px;
+}
+
+.label {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 8px;
+}
+
+.input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 24px;
+    box-sizing: border-box;
+}
+
+.forgotPassword {
+    display: block;
+    text-align: center;
+    margin-bottom: 24px;
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.loginButton {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #0056b3;
+    color: white;
+    font-size: 16px;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.signupPrompt {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.signupPrompt a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.overlay {
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.loginButton {
+    background: #0056b3;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

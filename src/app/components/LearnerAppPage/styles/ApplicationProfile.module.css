@@ -1,0 +1,106 @@
+.applicationProfile {
+    position: relative;
+    top: -80px;
+    height: auto;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: var(--font-lato), Arial, sans-serif;
+    
+    margin: 20px 210px;
+    padding: 20px;
+    /* padding-bottom: calc(10vh); */
+    background-color: #fff;
+  }
+  
+  .tableTitle {
+    display: flex;
+    text-align: left;
+  }
+  
+  
+  
+  .profileHeader {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-inter), Arial, sans-serif;
+  }
+  
+  .label { 
+    color: #808080;
+    font-size: 0.9em;
+  }
+  
+  .dividerVert {
+    border: none;
+    border-left: 1px solid #ddd;
+    margin: 20px 0;
+  }
+  
+  .divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+  }
+  
+  .tools {
+    display: flex;
+    justify-content: left;
+    gap: 30px;
+    margin: 20px;
+    margin-bottom: 50px;
+  }
+  
+  .toolButton {
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  
+  .powerbi {
+    background-color: #f0f8ff;
+    color: #00008b;
+  }
+  
+  .python {
+    background-color: #f8f8f8;
+    color: #007b7f;
+  }
+  
+  .excel {
+    background-color: #f0fff0;
+    color: #006400;
+  }
+  
+  .tableau {
+    background-color: #fff0f0;
+    color: #8b0000;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: left;
+    gap: 30px;
+  }
+  
+  .actionButton {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  
+  .home {
+    background-color: #e0e0e0;
+    color: #000;
+  }
+  
+  .newApplication {
+    background-color: #0056b3;
+    color: #fff;
+  }
+  

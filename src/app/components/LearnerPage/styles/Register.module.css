@@ -1,0 +1,228 @@
+
+
+.registerHeading {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.register-container {
+    display: flex;
+    /* background-color: #ffffff; */
+    /* border-radius: 12px; */
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+    overflow: hidden;
+    max-width: 1000px;
+    width: 100%;
+}
+
+
+.register-steps {
+    position: relative;
+    padding-left: 2rem;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 10rem;
+}
+
+
+
+
+
+
+
+
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.form-group {
+    flex: 1 0 48%; /* Two columns with some gap */
+    width: auto; /* Let content determine width */
+    position: relative; /* For absolute positioning of selects */
+}
+
+/* Full-width elements */
+.amount-input-container,
+.image-upload-container,
+.description-textarea-container {
+    flex: 1 0 100%; /* Full width */
+    width: 90%;
+    margin: 0 auto; /* Center */
+}
+
+.amount-input-container .input-wrapper,
+.image-upload-container .input-wrapper,
+.description-textarea-container {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.description-textarea-container textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 0.6rem 0.75rem;
+    /* background-color: #f8f9fa; */
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.input-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.5rem;
+    color: #808080;
+    gap: 1rem;
+}
+
+.input-container .input,
+.input-container .textarea,
+.input-container select {
+    border: none;
+    flex-grow: 1;
+    outline: none;
+    font-size: 0.9rem;
+    width: 86%;
+    padding: 0.5rem;
+    background: transparent;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #495057;
+}
+
+.input-container .input::placeholder {
+    color: #808080;
+    opacity: 1;
+}
+
+.input-container .input:focus,
+.input-container .textarea:focus,
+.input-container select:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    /* background-color: #fff; */
+}
+
+.image-upload-container .input-icon {
+    margin-right: 0.5rem;
+}
+
+.image-upload-container .input {
+    border: none;
+    background: transparent;
+    flex-grow: 1;
+}
+
+.amount-input-container .input-icon {
+    margin-right: 0.5rem;
+}
+
+.amount-input-container .input {
+    border: none;
+    background: transparent;
+    resize: vertical;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.register-button {
+    background-color: #01589A;
+    color: #ffffff;
+    font-size: 1rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+}
+
+.register-button:hover {
+    background-color: #0056b3;
+}
+
+/* Style for select elements */
+.form-group select {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto; /* Or a specific width if needed */
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    /* background-color: #f8f9fa; */
+    appearance: none;
+    cursor: pointer;
+}
+
+/* Add right padding to inputs */
+.input-container .input,
+.amount-input-container .input {
+    padding-right: 2rem; /* Adjust as needed */
+    box-sizing: border-box;
+}
+
+.textarea {
+    padding: 10.4px 12.8px;
+    font-family: var(--font-inter);
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        flex-wrap: nowrap; /* Prevent wrapping */
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        flex: 1 0 100%; /* Full width */
+        width: 100%;
+        position: relative;
+    }
+
+    .form-group select {
+        width: 100%;
+        position: relative;
+        right: auto;
+    }
+
+    .amount-input-container,
+    .image-upload-container,
+    .description-textarea-container {
+        width: 100%;
+    }
+
+    .input-container .input,
+    .amount-input-container .input {
+        padding-right: 0.75rem;
+    }
+}
