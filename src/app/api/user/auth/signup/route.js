@@ -5,12 +5,9 @@ import { connectDB } from "../../../../../../lib/mongodb";
 import User from "../../../../../../lib/models/User";
 import { sendVerificationEmail } from "../../../../../../lib/sendEmail";
 
-export async function POST(req: Request) {
+export async function POST(req) {
   try {
-    // Log request received
     console.log("Signup request received");
-    
-    // Connect to the database - add error handling
     try {
       await connectDB();
       console.log("MongoDB connected successfully");
@@ -21,8 +18,7 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
-    
-    // Parse request body with error handling
+
     let body;
     try {
       body = await req.json();
@@ -34,10 +30,9 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-    
+
     const { username, email, password } = body;
-    
-    // Validate required fields
+
     if (!email || !password) {
       console.log("Missing required fields");
       return NextResponse.json(
@@ -45,8 +40,7 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-    
-    // Check if user already exists
+
     try {
       const existingUser = await User.findOne({ email });
       if (existingUser) {
@@ -63,8 +57,7 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
-    
-    // Hash password
+
     let hashedPassword;
     try {
       hashedPassword = await bcrypt.hash(password, 10);
@@ -76,28 +69,25 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
-    
-    // Generate verification code
+
     const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-    
-    // Create user with all required fields
+
     const userObj = {
       username: username || email.split('@')[0],
       email,
       password: hashedPassword,
-      firstName: "", // Default value
-      lastName: "",  // Default value
+      firstName: "",
+      lastName: "",
       verified: false,
       verificationCode,
       verificationCodeExpires: new Date(Date.now() + 5 * 60 * 1000)
     };
-    
+
     console.log("Attempting to create user with:", {
       ...userObj,
-      password: "[HIDDEN]" // Don't log the password
+      password: "[HIDDEN]"
     });
-    
-    // Create and save the user
+
     let newUser;
     try {
       newUser = new User(userObj);
@@ -113,27 +103,22 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
-    
-    // Send verification email with error handling
+
     try {
       await sendVerificationEmail(email, verificationCode);
       console.log("Verification email sent successfully");
     } catch (emailError) {
       console.error("Failed to send verification email:", emailError);
-      // Continue execution, don't fail the whole request
     }
-    
-    // Return success response
+
     return NextResponse.json(
       { message: "User registered. Check your email for the verification code." }, 
       { status: 201 }
     );
-    
+
   } catch (error) {
-    // Log the full error details
     console.error("Signup error details:", error);
-    
-    // Return detailed error response
+
     return NextResponse.json(
       { 
         message: "Registration failed", 
@@ -144,7 +129,6 @@ export async function POST(req: Request) {
   }
 }
 
-// Handle preflight requests
 export async function OPTIONS() {
   return NextResponse.json({}, { status: 204 });
 }

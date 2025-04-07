@@ -27,15 +27,15 @@ const Register = () => {
         description: '',
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        const { name, value, type } = e.target as HTMLInputElement;
+    const handleChange = (e) => {
+        const { name, value, type } = e.target;
         setFormData({
             ...formData,
-            [name]: type === 'file' ? (e.target as HTMLInputElement).files?.[0] : value,
+            [name]: type === 'file' ? e.target.files?.[0] : value,
         });
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {

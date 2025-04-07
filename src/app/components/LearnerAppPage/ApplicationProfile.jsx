@@ -17,8 +17,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// 🔹 Define tools for each program dynamically
-const programTools: { [key: string]: { name: string; borderColor: string }[] } = {
+const programTools = {
   "Data Science": [
     { name: "Python", borderColor: "border-blue-500" },
     { name: "PowerBI", borderColor: "border-gray-500" },
@@ -39,15 +38,8 @@ const programTools: { [key: string]: { name: string; borderColor: string }[] } =
   ],
 };
 
-interface User {
-  program: string;
-  registeredAt: string;
-  status: string;
-  amountPaid: number;
-}
-
 const ApplicationProfile = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -72,8 +64,7 @@ const ApplicationProfile = () => {
 
   if (loading) return <p className="text-center text-gray-600">Loading...</p>;
 
-  // Fixed TypeScript errors by adding explicit types and handling undefined cases
-  const tools = programTools[user?.program as keyof typeof programTools] || [];
+  const tools = programTools[user?.program] || [];
 
   return (
     <div className={`relative top-[-80px] h-auto flex flex-col justify-center overflow-x-hidden mx-[210px] bg-white ${lato.variable} ${inter.variable}`}>
@@ -82,7 +73,6 @@ const ApplicationProfile = () => {
       </div>
 
       <div className="flex flex-col gap-6 mt-10">
-        {/* Profile Information Section */}
         <div className="flex flex-col gap-0">
           <div className="flex items-start text-left px-4 py-3">
             <div className="mr-6">
@@ -108,11 +98,9 @@ const ApplicationProfile = () => {
           <hr className="border-t border-gray-300 my-4" />
         </div>
 
-        {/* Tools Section (Dynamic) */}
         <div className="flex justify-start space-x-5 mb-[32px]">
           {tools.length > 0 ? (
-            // Updated map function to include explicit types for 'tool' and 'index'
-            tools.map((tool: { name: string; borderColor: string }, index: number) => (
+            tools.map((tool, index) => (
               <button key={index} className={`px-4 py-2 rounded-md font-medium border text-gray-800 hover:bg-gray-300 ${tool.borderColor}`}>
                 {tool.name}
               </button>
@@ -122,16 +110,13 @@ const ApplicationProfile = () => {
           )}
         </div>
 
-        {/* Actions Section */}
         <div className="flex justify-start space-x-5">
-          {/* ✅ Fixed Home Button */}
           <Link href="/" passHref>
             <button className="px-5 py-2 text-black rounded bg-[#e0e0e0]">
               Home
             </button>
           </Link>
 
-          {/* ✅ Fixed Start New Application Button */}
           <Link href="/RegisterAP" passHref>
             <button className="px-5 py-2 text-white rounded bg-[#0056b3]">
               Start new application

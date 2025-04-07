@@ -14,7 +14,7 @@ const Navbar = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const [showResetPassword, setShowResetPassword] = useState(false);
-  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
+  const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const Navbar = () => {
   };
   
 
-  const handleLoginSuccess = (userData: { name: string; email: string }) => {
+  const handleLoginSuccess = (userData) => {
     setUser(userData);
   };
 

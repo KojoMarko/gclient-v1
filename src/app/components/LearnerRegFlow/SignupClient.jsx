@@ -1,46 +1,19 @@
 import { useState } from "react";
 import { X, Lock } from "lucide-react"; // Removed unused Eye import
-import { Lato, Inter } from "next/font/google";
+import PropTypes from "prop-types";
 import Image from "next/image";
-import OTPVerification from "./OTPVerification";// ✅ Import OTPVerification component
+import OTPVerification from "./OTPVerification"; // ✅ Import OTPVerification component
 
-// Font variables can be commented out if not used in CSS classes
-// const lato = Lato({
-//   subsets: ["latin"],
-//   weight: ["700"],
-//   variable: "--font-lato",
-// });
-
-// const inter = Inter({
-//   subsets: ["latin"],
-//   weight: ["400", "600"],
-//   variable: "--font-inter",
-// });
-
-interface SignupClientProps {
-  onClose: () => void;
-  onLogin: () => void;
-}
-
-// Define an error interface to replace 'any'
-interface ApiError {
-  message: string;
-  status?: number;
-}
-
-const SignupClient: React.FC<SignupClientProps> = ({ onClose, onLogin }) => {
+const SignupClient = ({ onClose, onLogin }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // Removed unused state variables
-  // const [verificationCode, setVerificationCode] = useState("")
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
-  const [showVerification, setShowVerification] = useState<boolean>(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [showVerification, setShowVerification] = useState(false);
 
- //Handle Signup
-  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -57,17 +30,13 @@ const SignupClient: React.FC<SignupClientProps> = ({ onClose, onLogin }) => {
       if (!response.ok) throw new Error(data.message || "Signup failed");
 
       setSuccess("Signup successful! Check your email for the verification code.");
-      setShowVerification(true); // Show verification code input
+      setShowVerification(true);
     } catch (err) {
-      // Fixed: Use type casting instead of 'any'
-      const error = err as Error | ApiError;
-      setError(error.message || "An unexpected error occurred");
+      setError(err.message || "An unexpected error occurred");
     } finally {
       setLoading(false);
     }
   };
-
-  
 
   return (
     <div className="h-full bg-black/50 flex items-center justify-center z-[1000]">
@@ -76,7 +45,6 @@ const SignupClient: React.FC<SignupClientProps> = ({ onClose, onLogin }) => {
           <X />
         </button>
 
-        {/* Show OTPVerification After Signup */}
         {showVerification ? (
           <OTPVerification email={email} onLogin={onLogin} />
         ) : (
@@ -115,6 +83,11 @@ const SignupClient: React.FC<SignupClientProps> = ({ onClose, onLogin }) => {
       </div>
     </div>
   );
+};
+
+SignupClient.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
 };
 
 export default SignupClient;

@@ -3,7 +3,7 @@ import { verifyToken } from "../../../../../middleware/auth";
 import { connectDB } from "../../../../../lib/mongodb";
 import User from "../../../../../lib/models/User"; 
 
-export async function GET(req: NextRequest) {
+export async function GET(req) {
     await connectDB();
   
     const decodedUser = verifyToken(req);

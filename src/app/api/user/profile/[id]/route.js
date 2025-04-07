@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "../../../../../../lib/mongodb";
 import User from "../../../../../../lib/models/User";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req, { params }) {
   await connectDB();
   
   try {

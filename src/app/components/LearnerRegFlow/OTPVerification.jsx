@@ -1,8 +1,8 @@
 // components/OTPVerification.jsx
 'use client';
-import React, { useState } from "react"; // ✅ Import useState
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Lato, Inter } from 'next/font/google';
-// Removed unused 'styles' import
 
 const lato = Lato({
     subsets: ['latin'],
@@ -16,33 +16,20 @@ const inter = Inter({
     variable: '--font-inter',
 });
 
-interface OTPVerificationProps {
-    email: string;
-    onLogin: () => void;
-}
-
-// Define error interface to replace 'any'
-interface ApiError {
-    message: string;
-    status?: number;
-}
-
-const OTPVerification: React.FC<OTPVerificationProps> = ({ email, onLogin }) => {
+const OTPVerification = ({ email, onLogin }) => {
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [resendLoading, setResendLoading] = useState(false);
     const [resendMessage, setResendMessage] = useState("");
 
-    const handleChange = (index: number, value: string) => { // ✅ Explicitly define `index` and `value` types
+    const handleChange = (index, value) => {
         if (value.match(/^[0-9]$/)) {
             const newOtp = [...otp];
             newOtp[index] = value;
             setOtp(newOtp);
         }
     };
-
-    // Handle OTP Verification
 
     const handleVerify = async () => {
         setLoading(true);
@@ -59,43 +46,35 @@ const OTPVerification: React.FC<OTPVerificationProps> = ({ email, onLogin }) => 
             if (!response.ok) throw new Error(data.message || "Verification failed");
 
             alert("Email verified successfully! You can now log in.");
-            onLogin(); // ✅ Switch to login modal
+            onLogin();
         } catch (err) {
-            // Fixed: Use type casting instead of 'any'
-            const error = err as Error | ApiError;
-            setError(error.message || "Verification failed");
+            setError(err.message || "Verification failed");
         } finally {
             setLoading(false);
         }
     };
 
+    const handleResendOTP = async () => {
+        setResendLoading(true);
+        setResendMessage("");
 
-    // Handle Resend OTP
-  const handleResendOTP = async () => {
-    setResendLoading(true);
-    setResendMessage("");
+        try {
+            const response = await fetch("/api/user/auth/resend-otp", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email }),
+            });
 
-    try {
-      const response = await fetch("/api/user/auth/resend-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || "Failed to resend OTP");
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Failed to resend OTP");
-
-      setResendMessage("A new OTP has been sent to your email.");
-    } catch (err) {
-      // Fixed: Use type casting instead of 'any'
-      const error = err as Error | ApiError;
-      setError(error.message || "Failed to resend OTP");
-    } finally {
-      setResendLoading(false);
-    }
-  };
-
-
+            setResendMessage("A new OTP has been sent to your email.");
+        } catch (err) {
+            setError(err.message || "Failed to resend OTP");
+        } finally {
+            setResendLoading(false);
+        }
+    };
 
     return (
         <div className="flex justify-center items-center bg-white text-black">
@@ -111,21 +90,25 @@ const OTPVerification: React.FC<OTPVerificationProps> = ({ email, onLogin }) => 
                 </div>
                 {error && <p className="text-red-500">{error}</p>}
 
-<button className={`w-full px-3 py-2 border-none rounded-md bg-blue-700 text-white text-base leading-6 cursor-pointer ${inter.className}`} onClick={handleVerify} disabled={loading}>
-  {loading ? "Verifying..." : "Verify account"}
-</button>
+                <button className={`w-full px-3 py-2 border-none rounded-md bg-blue-700 text-white text-base leading-6 cursor-pointer ${inter.className}`} onClick={handleVerify} disabled={loading}>
+                    {loading ? "Verifying..." : "Verify account"}
+                </button>
 
-{/* Resend OTP Section */}
-<p className={`text-center mb-8 text-gray-500 ${inter.className}`}>
-  Didn&apos;t get a code?{" "}
-  <button className="text-blue-700 font-bold cursor-pointer border-none bg-none underline disabled:text-gray-500 disabled:cursor-not-allowed" onClick={handleResendOTP} disabled={resendLoading}>
-    {resendLoading ? "Resending..." : "Click to resend"}
-  </button>
-</p>
-{resendMessage && <p className="text-green-500 text-center mt-4">{resendMessage}</p>}
-</div>
-</div>
-);
+                <p className={`text-center mb-8 text-gray-500 ${inter.className}`}>
+                    Didn&apos;t get a code?{" "}
+                    <button className="text-blue-700 font-bold cursor-pointer border-none bg-none underline disabled:text-gray-500 disabled:cursor-not-allowed" onClick={handleResendOTP} disabled={resendLoading}>
+                        {resendLoading ? "Resending..." : "Click to resend"}
+                    </button>
+                </p>
+                {resendMessage && <p className="text-green-500 text-center mt-4">{resendMessage}</p>}
+            </div>
+        </div>
+    );
+};
+
+OTPVerification.propTypes = {
+    email: PropTypes.string.isRequired,
+    onLogin: PropTypes.func.isRequired,
 };
 
 export default OTPVerification;

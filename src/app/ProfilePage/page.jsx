@@ -1,21 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import JohnDoeAP from "../components/LearnerAppPage/JohnDoeAP"; // Profile UI
 import Navbar from "../components/LearnerPage/Navbar";
 import Dashboard from "../components/LearnerAppPage/Dashboard";
 import FooterAP from "../components/LearnerAppPage/FooterAP";
 
-// Define a proper interface for the user object
-interface User {
-  id: string;
-  username: string;
-  email: string;
-  // Add any other properties your user object has
-}
-
 export default function ProfilePage() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -60,3 +53,11 @@ export default function ProfilePage() {
     </div>
   );
 }
+
+JohnDoeAP.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    username: PropTypes.string,
+    email: PropTypes.string,
+  }),
+};

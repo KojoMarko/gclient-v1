@@ -3,15 +3,14 @@ import { connectDB } from "../../../../../../lib/mongodb";
 import User from "../../../../../../lib/models/User";
 import mongoose from "mongoose";
 
-export async function GET(request: NextRequest) {
+export async function GET(request) {
   try {
-    const id = request.nextUrl.pathname.split('/').pop() || ""; // Extract the dynamic 'id' from the request URL
+    const id = request.nextUrl.pathname.split('/').pop() || "";
 
     if (!id) {
       return new NextResponse(null, { status: 400 });
     }
 
-    // Validate the 'id' before using it
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return new NextResponse(null, { status: 400, statusText: "Invalid ID format" });
     }
@@ -23,7 +22,6 @@ export async function GET(request: NextRequest) {
       return new NextResponse(null, { status: 404 });
     }
 
-    // Return the image with the correct content type
     return new NextResponse(user.image.data, {
       headers: {
         "Content-Type": user.image.contentType,

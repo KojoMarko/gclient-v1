@@ -13,8 +13,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// Replaced 'any' with a specific type for the 'user' prop
-const JohnDoeAP = ({ user }: { user: { username: string; email: string; location: string; gender: string; phone: string } }) => {
+const JohnDoeAP = ({ user }) => {
   return (
     <div className={`relative top-[-80px] h-auto flex flex-col justify-center overflow-x-hidden mx-[210px] bg-white ${lato.variable} ${inter.variable}`}>
       <NavbarAP />
@@ -23,10 +22,10 @@ const JohnDoeAP = ({ user }: { user: { username: string; email: string; location
           <div className="w-[60px] h-[60px] rounded-full bg-hero-bg text-white text-2xl font-bold flex items-center justify-center">
             {user?.username
               ? user.username
-                  .split(" ") // Split by space into words
-                  .map((word: string) => word.charAt(0).toUpperCase()) // Get first letter of each word
-                  .slice(0, 2) // Take only first two words (if available)
-                  .join("") // Combine letters
+                  .split(" ")
+                  .map((word) => word.charAt(0).toUpperCase())
+                  .slice(0, 2)
+                  .join("")
               : "U"} 
           </div>
           <div>

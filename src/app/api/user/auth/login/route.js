@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { connectDB } from "../../../../../../lib/mongodb"; // Import connectDB function
 import User from "../../../../../../lib/models/User"; // Import User model
 
-export async function POST(req: Request) {
+export async function POST(req) {
   try {
     await connectDB();
     const { email, password } = await req.json();
@@ -23,12 +23,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Invalid email or password" }, { status: 401 });
     }
 
-    const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET!, { expiresIn: "7d" });
+    const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
     return NextResponse.json({
       token,
-      user: { 
-          id: user._id,  // ✅ Add the missing ID
+      user: {
+          id: user._id,
           name: user.username,
           email: user.email,
       }
@@ -36,6 +36,6 @@ export async function POST(req: Request) {
   
   } catch (error) {
     console.error("Login Error:", error);
-    return NextResponse.json({ message: "Internal Server Error", error: error instanceof Error ? error.message : "Unknown error" }, { status: 500 });
+    return NextResponse.json({ message: "Internal Server Error", error: error.message }, { status: 500 });
   }
 }

@@ -2,36 +2,24 @@
 
 import React from 'react';
 import Image from 'next/image';
+import PropTypes from "prop-types";
 
-interface UserImageProps {
-  image: Buffer | string | null;
-  alt: string;
-  width?: number;
-  height?: number;
-  className?: string;
-}
-
-const UserImage: React.FC<UserImageProps> = ({ 
+const UserImage = ({ 
   image, 
   alt, 
   width = 100, 
   height = 100,
   className = "" 
 }) => {
-  const [imageSrc, setImageSrc] = React.useState<string>("");
+  const [imageSrc, setImageSrc] = React.useState("");
 
   React.useEffect(() => {
-    // Handle different image types
     if (!image) {
-      // Use a default avatar if no image is provided
       setImageSrc('/default-avatar.png');
     } else if (typeof image === 'string') {
-      // If image is already a string (path), use it directly
       setImageSrc(image);
     } else {
-      // If image is a Buffer, convert it to base64
       try {
-        // Convert Buffer to base64 string
         const base64 = Buffer.from(image).toString('base64');
         setImageSrc(`data:image/jpeg;base64,${base64}`);
       } catch (error) {
@@ -42,7 +30,7 @@ const UserImage: React.FC<UserImageProps> = ({
   }, [image]);
 
   if (!imageSrc) {
-    return null; // or a loading spinner
+    return null;
   }
 
   return (
@@ -56,6 +44,14 @@ const UserImage: React.FC<UserImageProps> = ({
       />
     </div>
   );
+};
+
+UserImage.propTypes = {
+  image: PropTypes.oneOfType([PropTypes.instanceOf(Buffer), PropTypes.string, PropTypes.oneOf([null])]),
+  alt: PropTypes.string.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  className: PropTypes.string,
 };
 
 export default UserImage;

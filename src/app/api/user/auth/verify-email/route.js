@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "../../../../../../lib/mongodb";// Import connectDB function
-import User from "../../../../../../lib/models/User";// Import User model
+import { connectDB } from "../../../../../../lib/mongodb";
+import User from "../../../../../../lib/models/User";
 
-export async function POST(req: Request) {
+export async function POST(req) {
   await connectDB();
   const { email, code } = await req.json();
 
@@ -20,7 +20,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "Invalid or expired verification code" }, { status: 400 });
   }
 
-  // Mark user as verified
   user.verified = true;
   user.verificationCode = undefined;
   user.verificationCodeExpires = undefined;

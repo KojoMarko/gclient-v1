@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "lib/models/User.js", "lib/mongodb.js", "lib/sendEmail.js", "middleware/auth.js", "src/app/api/user/auth/login/route.js", "src/app/api/user/auth/resend-otp/route.js", "src/app/api/user/auth/signup/route.js", "src/app/api/user/auth/verify-email/route.js", "src/app/api/user/image/[id]/route.js", "src/app/api/user/profile/[id]/route.js", "src/app/api/user/profile/route.js", "src/app/api/user/register/route.js", "src/app/application-profile/page.jsx", "src/app/components/LearnerAppPage/ApplicationProfile.jsx", "src/app/components/LearnerAppPage/Dashboard.jsx", "src/app/components/LearnerAppPage/FooterAP.jsx", "src/app/components/LearnerAppPage/JohnDoeAP.jsx", "src/app/components/LearnerAppPage/NavbarAP.jsx", "src/app/components/LearnerAppPage/OopsAP.jsx", "src/app/components/LearnerAppPage/page.jsx", "src/app/components/LearnerAppPage/RegisterAP.jsx", "src/app/components/LearnerPage/Footer.jsx", "src/app/components/LearnerPage/Hero.jsx", "src/app/components/LearnerPage/Navbar.jsx", "src/app/components/LearnerPage/OurSolutions.jsx", "src/app/components/LearnerPage/page.jsx", "src/app/components/LearnerPage/Register.jsx", "src/app/components/LearnerPage/RegisterSteps.jsx", "src/app/components/LearnerPage/WhatNext.jsx", "src/app/components/LearnerRegFlow/EmailResetPassword.jsx", "src/app/components/LearnerRegFlow/LoginClient.jsx", "src/app/components/LearnerRegFlow/OTPVerification.jsx", "src/app/components/LearnerRegFlow/page.jsx", "src/app/components/LearnerRegFlow/ResetPassword.jsx", "src/app/components/LearnerRegFlow/SignupClient.jsx", "src/app/components/UserImage.jsx", "src/app/LearnerPage/profile/[id]/page.jsx", "src/app/LearnerPage/page.jsx", "src/app/ProfilePage/page.jsx", "src/app/RegisterAP/page.jsx", "src/app/layout.jsx", "src/app/page.jsx", "middleware.js", "next.config.js", "tailwind.config.js"],
+  "exclude": ["node_modules"]
+  
+}

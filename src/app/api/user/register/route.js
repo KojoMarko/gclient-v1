@@ -1,40 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { connectDB } from "../../../../../lib/mongodb";
 import User from "../../../../../lib/models/User";
-import multer from 'multer';
 
-// Removed unused 'storage' variable
-// Removed unused 'upload' variable
-
-// Define TypeScript interfaces
-// Removed FormDataObject as it's not being used
-
-interface UserUpdateData {
-  username: string;
-  firstName?: string;
-  lastName?: string;
-  email: string;
-  location?: string;
-  program?: string;
-  gender?: string;
-  disabled?: string;
-  phone?: string;
-  amountPaid?: string | number;
-  description?: string;
-  image?: { 
-    data: Buffer | null; 
-    contentType: string | null 
-  }; // Store the image as binary data and content type
-  registeredAt: Date;
-}
-
-// Define error type for better error handling
-interface ServerError extends Error {
-  message: string;
-  code?: string | number;
-}
-
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   try {
     await connectDB();
     const formData = await request.formData();
@@ -47,26 +15,23 @@ export async function POST(request: NextRequest) {
       contentType = imageFile.type;
     }
 
-    const email = formData.get('email') as string;
-    const firstName = formData.get('firstName') as string;
-    const lastName = formData.get('lastName') as string;
-    const location = formData.get('location') as string;
-    // Changed variable name from "module" to avoid conflict with Node.js module
-    const userModule = formData.get('module') as string;
-    const gender = formData.get('gender') as string;
-    const disabled = formData.get('disabled') as string;
-    const phone = formData.get('phone') as string;
-    const amount = formData.get('amount') as string;
-    const description = formData.get('description') as string;
+    const email = formData.get('email');
+    const firstName = formData.get('firstName');
+    const lastName = formData.get('lastName');
+    const location = formData.get('location');
+    const userModule = formData.get('module');
+    const gender = formData.get('gender');
+    const disabled = formData.get('disabled');
+    const phone = formData.get('phone');
+    const amount = formData.get('amount');
+    const description = formData.get('description');
 
     const currentDate = new Date();
 
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      console.log(`🔄 Updating existing user: ${email}`);
-
-      const updateData: UserUpdateData = {
+      const updateData = {
         username: `${firstName} ${lastName}`,
         firstName,
         lastName,
@@ -93,8 +58,6 @@ export async function POST(request: NextRequest) {
         user: updatedUser
       });
     } else {
-      console.log(`🆕 Creating new user: ${email}`);
-
       const newUser = new User({
         username: `${firstName} ${lastName}`,
         firstName,
@@ -120,11 +83,10 @@ export async function POST(request: NextRequest) {
       });
     }
   } catch (error) {
-    const serverError = error as ServerError;
-    console.error("❌ Server error:", serverError);
+    console.error("Server error:", error);
     return NextResponse.json({
       message: "Server error",
-      details: serverError.message
+      details: error.message
     }, { status: 500 });
   }
 }

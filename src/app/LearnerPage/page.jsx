@@ -8,7 +8,7 @@ import FooterAP from "../components/LearnerAppPage/FooterAP";
 import { useState, useEffect } from "react";
 
 export default function Page() {
-    const [hasApplication, setHasApplication] = useState<boolean | null>(null);
+    const [hasApplication, setHasApplication] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

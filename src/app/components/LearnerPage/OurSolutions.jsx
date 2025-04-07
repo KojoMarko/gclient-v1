@@ -1,6 +1,7 @@
 // components/OurSolutions.js
 import Image from 'next/image';
 import { Lato, Inter } from 'next/font/google';
+import PropTypes from "prop-types";
 import styles from './styles/OurSolutions.module.css';
 
 const lato = Lato({
@@ -15,11 +16,7 @@ const inter = Inter({
     variable: '--font-inter',
 });
 
-interface OurSolutionsProps {
-    id?: string; // Optional id for scrolling
-  }
-  
-  const OurSolutions: React.FC<OurSolutionsProps> = ({ id }) => {
+const OurSolutions = ({ id }) => {
     return (
         <section id={id} className="m-0 px-xl py-20">
             <div className="m-0 align-center text-center">
@@ -66,6 +63,10 @@ interface OurSolutionsProps {
             </div>
         </section>
     );
+};
+
+OurSolutions.propTypes = {
+    id: PropTypes.string,
 };
 
 export default OurSolutions;
